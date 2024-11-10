@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Account List</title>
+</head>
+<body>
+    <h2>User Account List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User ID</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Role</th>
+                <th>License Level</th>
+                <th>Employment Type</th>
+                <th>IP Clearance</th>
+                <th>Catalog Task ID</th>
+                <th>Submission Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in user_accounts %}
+                <tr>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.userid }}</td>
+                    <td>{{ account.email }}</td>
+                    <td>{{ account.group }}</td>
+                    <td>{{ account.role }}</td>
+                    <td>{{ account.licenselevel }}</td>
+                    <td>{{ account.employment_type }}</td>
+                    <td>{{ account.ip_clearance }}</td>
+                    <td>{{ account.catalog_task_id }}</td>
+                    <td>{{ account.submission_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
