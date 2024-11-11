@@ -1,7 +1,9 @@
+# D:\Projects\Project4_thermo\thermo\thermo\urls.py
+
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user_account/', include('user_account.urls')),
+    path('admin/', admin.site.urls),         # Admin panel route
+    path('user/', include('user_account.urls')),  # User account app routes
 ]

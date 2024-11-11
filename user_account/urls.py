@@ -1,7 +1,9 @@
+# D:\Projects\Project4_thermo\thermo\user_account\urls.py
+
 from django.urls import path
-from .views import user_account_create, user_account_list
+from . import views
 
 urlpatterns = [
-    path('create/', user_account_create, name='user_account_create'),
-    path('list/', user_account_list, name='user_account_list'),
+    path('new/', views.user_data_create, name='user_data_create'),  # Form to create user data
+    path('list/', views.user_data_list, name='user_data_list'),     # Display user data list
 ]
