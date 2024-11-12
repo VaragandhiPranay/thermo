@@ -20,6 +20,33 @@
             {% crispy form %}
         </form>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Cache selectors for the Employment type, Company name, and IP clearance level fields
+            const employmentTypeField = $('#id_employment_type');
+            const companyNameField = $('#id_company_name').closest('.form-group'); // Adjust to your form field structure
+            const ipClearanceField = $('#id_ip_clearance_level').closest('.form-group'); // Adjust to your form field structure
+
+            // Initially hide Company name and IP clearance level fields
+            companyNameField.hide();
+            ipClearanceField.hide();
+
+            // Function to toggle visibility based on Employment type selection
+            function toggleFields() {
+                if (employmentTypeField.val() === 'MSD') {
+                    companyNameField.hide();
+                    ipClearanceField.hide();
+                } else {
+                    companyNameField.show();
+                    ipClearanceField.show();
+                }
+            }
+
+            // Re-check visibility whenever the Employment type changes
+            employmentTypeField.change(toggleFields);
+        });
+    </script>
 </body>
 </html>

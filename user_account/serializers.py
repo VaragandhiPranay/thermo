@@ -1,9 +1,7 @@
-# user_account/serializers.py
-
 from rest_framework import serializers
-from .models import UserAccount
+from .models import UserData
 
-class UserAccountSerializer(serializers.ModelSerializer):
+class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserAccount
+        model = UserData
         fields = '__all__'
