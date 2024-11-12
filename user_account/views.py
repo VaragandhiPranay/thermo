@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import UserDataForm
 from .models import UserData
 
+def home(request):
+    return render(request, 'user_account/home.html')
+
 def user_data_create(request):
     if request.method == 'POST':
         form = UserDataForm(request.POST)
@@ -13,5 +16,5 @@ def user_data_create(request):
     return render(request, 'user_account/user_data_form.html', {'form': form})
 
 def user_data_list(request):
-    data = UserData.objects.all().order_by('-submission_date')
+    data = UserData.objects.all().order_by('-submission_date')  # Fetch all data
     return render(request, 'user_account/user_data_list.html', {'data': data})

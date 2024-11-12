@@ -1,29 +1,28 @@
-// jQuery ready function to ensure the document is fully loaded before running scripts
 $(document).ready(function() {
-    // Employment type selection to toggle visibility of company and IP clearance fields
     const employmentTypeField = $('#id_employment_type');
     const companyField = $('#id_company_name').closest('.form-group');
     const clearanceLevelField = $('#id_ip_clearance_level').closest('.form-group');
 
-    // Show or hide company name and IP clearance fields based on employment type
-    function toggleCompanyAndClearance() {
+    // Initially hide fields
+    companyField.hide();
+    clearanceLevelField.hide();
+
+    // Toggle visibility and required attribute based on Employment Type selection
+    function toggleRequiredFields() {
         if (employmentTypeField.val() === 'other') {
             companyField.show();
             clearanceLevelField.show();
+            $('#id_company_name').prop('required', true);
+            $('#id_ip_clearance_level').prop('required', true);
         } else {
             companyField.hide();
             clearanceLevelField.hide();
+            $('#id_company_name').prop('required', false);
+            $('#id_ip_clearance_level').prop('required', false);
         }
     }
 
-    employmentTypeField.change(toggleCompanyAndClearance);
-    toggleCompanyAndClearance(); // Initial call on page load
-
-    // Search functionality for filtering user data table rows
-    $('#searchInput').on('keyup', function() {
-        const value = $(this).val().toLowerCase();
-        $('#userDataTable tr').filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+    // Trigger function on page load and when Employment Type changes
+    employmentTypeField.change(toggleRequiredFields);
+    toggleRequiredFields();  // Initial call on page load
 });

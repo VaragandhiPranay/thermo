@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Thermo Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5 text-center">
+        <h2>Welcome to the Thermo Project</h2>
+        <p>Please select where you would like to navigate:</p>
+        <a href="{% url 'user_data_create' %}" class="btn btn-primary btn-lg mx-2">Submit User Data</a>
+        <a href="{% url 'user_data_list' %}" class="btn btn-secondary btn-lg mx-2">View User Data List</a>
+    </div>
+</body>
+</html>
