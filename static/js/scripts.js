@@ -1,3 +1,5 @@
+// static/js/scripts.js
+
 $(document).ready(function() {
     const employmentTypeField = $('#id_employment_type');
     const companyField = $('#id_company_name').closest('.form-group');
@@ -22,7 +24,6 @@ $(document).ready(function() {
         }
     }
 
-    // Trigger function on page load and when Employment Type changes
     employmentTypeField.change(toggleRequiredFields);
     toggleRequiredFields();  // Initial call on page load
 });

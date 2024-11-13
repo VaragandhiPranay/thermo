@@ -1,4 +1,7 @@
+# views.py
+
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from .forms import UserDataForm
 from .models import UserData
 from rest_framework.views import APIView
@@ -21,10 +24,34 @@ def user_data_create(request):
         form = UserDataForm()
     return render(request, 'user_account/user_data_form.html', {'form': form})
 
-# List View
+# List View with Search
+# views.py
 def user_data_list(request):
-    data = UserData.objects.all().order_by('-submission_date')  # Fetch all data
-    return render(request, 'user_account/user_data_list.html', {'data': data})
+    query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort_by', 'submission_date')  # Default sorting field
+    order = request.GET.get('order', 'desc')  # Default order is descending
+
+    # Determine sorting order
+    if order == 'desc':
+        sort_by = f'-{sort_by}'
+
+    # Filter data based on search query
+    data = UserData.objects.filter(
+        Q(name__icontains=query) | 
+        Q(user_id__icontains=query) | 
+        Q(email__icontains=query) | 
+        Q(role__icontains=query) |
+        Q(catalog_tasks_id__icontains=query)
+    ).order_by(sort_by)
+
+    # Pass sorting details to template
+    return render(request, 'user_account/user_data_list.html', {
+        'data': data,
+        'query': query,
+        'sort_by': sort_by.lstrip('-'),  # Send sort field without '-' prefix for display
+        'order': order,
+    })
+
 
 # Update View
 def user_data_update(request, pk):

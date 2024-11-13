@@ -35,16 +35,16 @@ class UserData(models.Model):
     employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_TYPE_CHOICES)
     company_name = models.CharField(max_length=50, blank=True, null=True)
     ip_clearance_level = models.IntegerField(choices=IP_CLEARANCE_LEVEL_CHOICES, blank=True, null=True)
-    license_level = models.CharField(max_length=20, default='Consumer')
+    license_level = models.CharField(max_length=20, default='consumer')
     ip_clearance_status = models.CharField(max_length=20, blank=True, null=True)
     catalog_tasks_id = models.CharField(max_length=50, blank=True, null=True)
     submission_date = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         if self.role == 'viewer':
-            self.license_level = 'Consumer'
+            self.license_level = 'consumer'
         else:
-            self.license_level = 'Author'
+            self.license_level = 'author'
         if self.employment_type == 'MSD' or self.ip_clearance_level == 3:
             self.ip_clearance_status = 'Restricted'
         else:
