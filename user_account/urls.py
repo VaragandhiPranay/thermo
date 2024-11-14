@@ -8,4 +8,6 @@ urlpatterns = [
     path('edit/<int:pk>/', views.user_data_update, name='user_data_update'),  # Update view
     path('delete/<int:pk>/', views.user_data_delete, name='user_data_delete'), # Delete view
     path('api/userdata/<int:pk>/', views.UserDataDetail.as_view(), name='user_data_detail'),  # API endpoint for CRUD
+    path('export/', views.export_user_data_pipe_separated, name='export_user_data_pipe_separated'),
+
 ]

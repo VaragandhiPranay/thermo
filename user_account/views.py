@@ -100,3 +100,37 @@ class UserDataDetail(APIView):
         user_data = get_object_or_404(UserData, pk=pk)
         user_data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+import csv
+from django.http import HttpResponse
+from .models import UserData
+
+def export_user_data_pipe_separated(request):
+    users = UserData.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="user_data.txt"'
+
+    writer = csv.writer(response, delimiter='|')  # Use '|' as the delimiter
+
+    for user in users:
+        writer.writerow([
+            user.name,
+            user.user_id,
+            '',  # Empty field as requested
+            user.group,
+            user.role,
+            'licenselevel',  # Static text as requested
+            'author' if user.role == 'Designer' else 'consumer',  # 'author' for Designer role, else 'consumer'
+            'status',  # Static text as requested
+            '0',  # Static text as requested
+            'PA6',  # Static text as requested
+            user.employment_type,  # Contains either "MSD" or the company name directly
+            'PA9',  # Static text as requested
+            user.email,
+            'ip_clearance',  # Static text as requested
+            user.ip_clearance_status or 'N/A'  # 'Restricted' if applicable, otherwise 'N/A'
+        ])
+
+    return response
+

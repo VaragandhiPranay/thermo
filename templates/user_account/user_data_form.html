@@ -18,6 +18,11 @@
         <form method="POST" novalidate>
             {% csrf_token %}
             {% crispy form %}
+
+            <!-- Datalist for employment type suggestions -->
+            <datalist id="employment_type_list">
+                <option value="MSD">
+            </datalist>
         </form>
     </div>
 
@@ -46,6 +51,9 @@
 
             // Re-check visibility whenever the Employment type changes
             employmentTypeField.change(toggleFields);
+
+            // Set up datalist for employment type field
+            employmentTypeField.attr('list', 'employment_type_list');
         });
     </script>
 </body>

@@ -7,18 +7,11 @@ GROUP_CHOICES = [
     ('production', 'Production'),
     ('service', 'Service'),
     ('users', 'Users'),
-    ('other', 'Other')
 ]
 
 ROLE_CHOICES = [
-    ('viewer', 'Viewer'),
-    ('designer', 'Designer'),
-    ('other', 'Other')
-]
-
-EMPLOYMENT_TYPE_CHOICES = [
-    ('MSD', 'MSD'),
-    ('other', 'Other')
+    ('Viewer', 'Viewer'),
+    ('Designer', 'Designer')
 ]
 
 IP_CLEARANCE_LEVEL_CHOICES = [
@@ -32,8 +25,7 @@ class UserData(models.Model):
     email = models.EmailField()
     group = models.CharField(max_length=20, choices=GROUP_CHOICES)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_TYPE_CHOICES)
-    company_name = models.CharField(max_length=50, blank=True, null=True)
+    employment_type = models.CharField(max_length=50)
     ip_clearance_level = models.IntegerField(choices=IP_CLEARANCE_LEVEL_CHOICES, blank=True, null=True)
     license_level = models.CharField(max_length=20, default='consumer')
     ip_clearance_status = models.CharField(max_length=20, blank=True, null=True)
@@ -41,10 +33,7 @@ class UserData(models.Model):
     submission_date = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        if self.role == 'viewer':
-            self.license_level = 'consumer'
-        else:
-            self.license_level = 'author'
+        self.license_level = 'consumer' if self.role == 'Viewer' else 'author'
         if self.employment_type == 'MSD' or self.ip_clearance_level == 3:
             self.ip_clearance_status = 'Restricted'
         else:

@@ -30,6 +30,9 @@
         .alert-warning {
             margin-top: 20px;
         }
+        .export-button {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +55,11 @@
                 No entries found.
             </div>
         {% endif %}
+
+        <!-- Export button -->
+        <div class="export-button">
+            <a href="{% url 'export_user_data_pipe_separated' %}" class="btn btn-info">Export Data</a>
+        </div>
 
         <!-- Responsive Table Wrapper -->
         <div class="table-responsive">
