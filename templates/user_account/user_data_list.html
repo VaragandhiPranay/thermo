@@ -39,7 +39,10 @@
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center">
             <h2>User Data List</h2>
-            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Home</a>
+            <div>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Home</a>
+                <a href="{% url 'user_data_create' %}" class="btn btn-primary ml-2">Create Data</a>
+            </div>
         </div>
 
         <!-- Search form -->

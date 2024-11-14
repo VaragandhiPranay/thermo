@@ -106,6 +106,10 @@ import csv
 from django.http import HttpResponse
 from .models import UserData
 
+import csv
+from django.http import HttpResponse
+from .models import UserData
+
 def export_user_data_pipe_separated(request):
     users = UserData.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -125,11 +129,11 @@ def export_user_data_pipe_separated(request):
             'status',  # Static text as requested
             '0',  # Static text as requested
             'PA6',  # Static text as requested
-            user.employment_type,  # Contains either "MSD" or the company name directly
+            user.employment_type,  # Will contain either "MSD" or the company name directly
             'PA9',  # Static text as requested
             user.email,
             'ip_clearance',  # Static text as requested
-            user.ip_clearance_status or 'N/A'  # 'Restricted' if applicable, otherwise 'N/A'
+            user.ip_clearance_status if user.ip_clearance_status is not None else ''  # Leave blank if null
         ])
 
     return response

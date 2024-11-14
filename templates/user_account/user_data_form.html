@@ -18,42 +18,30 @@
         <form method="POST" novalidate>
             {% csrf_token %}
             {% crispy form %}
-
-            <!-- Datalist for employment type suggestions -->
-            <datalist id="employment_type_list">
-                <option value="MSD">
-            </datalist>
         </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Cache selectors for the Employment type, Company name, and IP clearance level fields
             const employmentTypeField = $('#id_employment_type');
-            const companyNameField = $('#id_company_name').closest('.form-group'); // Adjust to your form field structure
-            const ipClearanceField = $('#id_ip_clearance_level').closest('.form-group'); // Adjust to your form field structure
+            const companyNameField = $('#id_company_name').closest('.form-group');
 
-            // Initially hide Company name and IP clearance level fields
+            // Hide company name field initially
             companyNameField.hide();
-            ipClearanceField.hide();
 
-            // Function to toggle visibility based on Employment type selection
-            function toggleFields() {
-                if (employmentTypeField.val() === 'MSD') {
-                    companyNameField.hide();
-                    ipClearanceField.hide();
-                } else {
+            function toggleCompanyField() {
+                if (employmentTypeField.val() === 'other') {
                     companyNameField.show();
-                    ipClearanceField.show();
+                } else {
+                    companyNameField.hide();
+                    $('#id_company_name').val('');  // Clear company name if not needed
                 }
             }
 
-            // Re-check visibility whenever the Employment type changes
-            employmentTypeField.change(toggleFields);
-
-            // Set up datalist for employment type field
-            employmentTypeField.attr('list', 'employment_type_list');
+            // Toggle visibility on page load and when the employment type changes
+            employmentTypeField.change(toggleCompanyField);
+            toggleCompanyField();  // Initial call to set correct visibility
         });
     </script>
 </body>
